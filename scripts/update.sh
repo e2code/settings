@@ -42,7 +42,7 @@ updateSettings() {
 		exit 0
 	fi
 	
-	echo "killall enigma2"
+	echo "[DUMP] killall enigma2"
 	local FILES=$(ls -lh "$WORKING_PATH/$DIRECTORY/userbouquet.*" | awk '{ print $9 }')
 	local CURRENT_FILES=$(ls -lh /etc/enigma2/userbouquet.* | awk '{ print $9 }')
 	for i in $CURRENT_FILES
@@ -108,7 +108,6 @@ then
 	else
 		updateSettings "$1"
 		echo "Updating latest CHECKSUM"
-		rm "$WORKING_PATH/$CHECKSUM_LOCAL"
 		mv "$WORKING_PATH/$CHECKSUM_LATEST" "$WORKING_PATH/$CHECKSUM_LOCAL"
 	fi
 else
