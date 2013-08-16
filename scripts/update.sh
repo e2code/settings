@@ -2,7 +2,7 @@
 # Usage:
 #  ./update.sh URL
 
-if [ $# != 1] 
+if [ $# != 1 ] 
 then 
 	echo "usage '$0 URL'"
 	exit 0
