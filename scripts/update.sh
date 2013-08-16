@@ -9,7 +9,7 @@ then
 fi
 
 FILE=update.zip
-PATH=/var/e2code
+WORKING_PATH=/var/e2code
 DIRECTORY=channels
 CHECKSUM_LOCAL=CHECKSUM
 CHECKSUM_LATEST=CHECKSUM_LATEST
@@ -17,33 +17,33 @@ CHECKSUM_LATEST=CHECKSUM_LATEST
 updateSettings() {
 	echo "Updating settings"
 	echo "Downloading latest stable release"
-	wget -O "$PATH/$FILE" "$1/$FILE"
+	wget -O "$WORKING_PATH/$FILE" "$1/$FILE"
 	
 	echo "Checking downloaded file"
-	if [ -f "$PATH/$FILE" ]
+	if [ -f "$WORKING_PATH/$FILE" ]
 	then
 		echo "Cleaning directory"
-		if [ -d "$PATH/$DIRECTORY" ]
+		if [ -d "$WORKING_PATH/$DIRECTORY" ]
 		then
-			cd "$PATH/$DIRECTORY"
+			cd "$WORKING_PATH/$DIRECTORY"
 			rm -rf *
 			cd -
 		else
-			mkdir -p "$PATH/$DIRECTORY"
+			mkdir -p "$WORKING_PATH/$DIRECTORY"
 		fi
 
 		echo "Extracting..."
-		unzip "$PATH/$FILE" -d "$PATH/$DIRECTORY"
+		unzip "$WORKING_PATH/$FILE" -d "$WORKING_PATH/$DIRECTORY"
 
 		echo "Removing downloaded archive file."
-		rm "$PATH/$FILE"
+		rm "$WORKING_PATH/$FILE"
 	else
 		echo "Failed downloading file!"
 		exit 0
 	fi
 	
 	echo "killall enigma2"
-	local FILES=$(ls -lh "$PATH/$DIRECTORY/userbouquet.*" | awk '{ print $9 }')
+	local FILES=$(ls -lh "$WORKING_PATH/$DIRECTORY/userbouquet.*" | awk '{ print $9 }')
 	local CURRENT_FILES=$(ls -lh /etc/enigma2/userbouquet.* | awk '{ print $9 }')
 	for i in $CURRENT_FILES
 	do
@@ -66,7 +66,7 @@ updateSettings() {
 			rm "/etc/enigma2/$base_i"
 		fi
 	done
-	FILES=$(ls -lh "$PATH/$DIRECTORY" | awk '{ print $9 }')
+	FILES=$(ls -lh "$WORKING_PATH/$DIRECTORY" | awk '{ print $9 }')
 	for i in $FILES
 	do
 		local base_i=$(basename $i)
@@ -83,33 +83,33 @@ updateSettings() {
 		esac
 		if [ $target != 0 ] 
 		then 
-			echo "cp -f $PATH/$DIRECTORY/$base_i $target"
-			cp -f "$PATH/$DIRECTORY/$base_i" "$target"
+			echo "cp -f $WORKING_PATH/$DIRECTORY/$base_i $target"
+			cp -f "$WORKING_PATH/$DIRECTORY/$base_i" "$target"
 		fi
 	done
 	echo "[DUMP] ./usr/bin/enigma2"
 }
 
 echo "Downloading latest CHECKSUM"
-wget -O "$PATH/$CHECKSUM_LATEST" "$1/$CHECKSUM_LOCAL"
-if [ -f "$PATH/$CHECKSUM_LATEST" ]
+wget -O "$WORKING_PATH/$CHECKSUM_LATEST" "$1/$CHECKSUM_LOCAL"
+if [ -f "$WORKING_PATH/$CHECKSUM_LATEST" ]
 then
-	if [ -f "$PATH/$CHECKSUM_LOCAL" ]
+	if [ -f "$WORKING_PATH/$CHECKSUM_LOCAL" ]
 	then
-		if diff "$PATH/$CHECKSUM_LOCAL" "$PATH/$CHECKSUM_LATEST" > /dev/null
+		if diff "$WORKING_PATH/$CHECKSUM_LOCAL" "$WORKING_PATH/$CHECKSUM_LATEST" > /dev/null
 		then
 			echo "No update required"
 		else
 			updateSettings "$1"
 			echo "Updating latest CHECKSUM"
-			rm "$PATH/$CHECKSUM_LOCAL"
-			mv "$PATH/$CHECKSUM_LATEST" "$PATH/$CHECKSUM_LOCAL"
+			rm "$WORKING_PATH/$CHECKSUM_LOCAL"
+			mv "$WORKING_PATH/$CHECKSUM_LATEST" "$WORKING_PATH/$CHECKSUM_LOCAL"
 		fi
 	else
 		updateSettings "$1"
 		echo "Updating latest CHECKSUM"
-		rm "$PATH/$CHECKSUM_LOCAL"
-		mv "$PATH/$CHECKSUM_LATEST" "$PATH/$CHECKSUM_LOCAL"
+		rm "$WORKING_PATH/$CHECKSUM_LOCAL"
+		mv "$WORKING_PATH/$CHECKSUM_LATEST" "$WORKING_PATH/$CHECKSUM_LOCAL"
 	fi
 else
 	echo "Latest CHECKSUM missing! Aborting..."
