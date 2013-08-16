@@ -1,6 +1,8 @@
 #!/bin/sh
 # Usage:
 #  ./update.sh URL
+#
+#  Add script execution to /usr/bin/enigma2_pre_start.sh | /usr/bin/enigma2.sh
 
 if [ $# != 1 ] 
 then 
