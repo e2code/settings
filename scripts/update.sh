@@ -9,40 +9,41 @@ then
 fi
 
 FILE=update.zip
-DIRECTORY=/var/e2code/channels
+PATH=/var/e2code
+DIRECTORY=channels
 CHECKSUM_LOCAL=CHECKSUM
 CHECKSUM_LATEST=CHECKSUM_LATEST
 
 updateSettings() {
 	echo "Updating settings"
 	echo "Downloading latest stable release"
-	wget -O "$FILE" "$1/$FILE"
+	wget -O "$PATH/$FILE" "$1/$FILE"
 	
 	echo "Checking downloaded file"
-	if [ -f "$FILE" ]
+	if [ -f "$PATH/$FILE" ]
 	then
 		echo "Cleaning directory"
-		if [ -d "$DIRECTORY" ]
+		if [ -d "$PATH/$DIRECTORY" ]
 		then
-			cd "$DIRECTORY"
+			cd "$PATH/$DIRECTORY"
 			rm -rf *
-			cd ..
+			cd -
 		else
-			mkdir "$DIRECTORY"
+			mkdir -p "$PATH/$DIRECTORY"
 		fi
 
 		echo "Extracting..."
-		unzip "$FILE" -d "$DIRECTORY"
+		unzip "$PATH/$FILE" -d "$PATH/$DIRECTORY"
 
 		echo "Removing downloaded archive file."
-		rm $FILE
+		rm "$PATH/$FILE"
 	else
 		echo "Failed downloading file!"
 		exit 0
 	fi
 	
 	echo "killall enigma2"
-	local FILES=$(ls -lh $DIRECTORY/userbouquet.* | awk '{ print $9 }')
+	local FILES=$(ls -lh "$PATH/$DIRECTORY/userbouquet.*" | awk '{ print $9 }')
 	local CURRENT_FILES=$(ls -lh /etc/enigma2/userbouquet.* | awk '{ print $9 }')
 	for i in $CURRENT_FILES
 	do
@@ -61,11 +62,11 @@ updateSettings() {
 		done
 		if [ $IS_SET == 0 ]
 		then
-			echo "rm $i"
-			rm "$i"
+			echo "rm /etc/enigma2/$base_i"
+			rm "/etc/enigma2/$base_i"
 		fi
 	done
-	FILES=$(ls -lh $DIRECTORY | awk '{ print $9 }')
+	FILES=$(ls -lh "$PATH/$DIRECTORY" | awk '{ print $9 }')
 	for i in $FILES
 	do
 		local base_i=$(basename $i)
@@ -82,33 +83,33 @@ updateSettings() {
 		esac
 		if [ $target != 0 ] 
 		then 
-			echo "cp -f $i $target"
-			cp -f "$i" "$target"
+			echo "cp -f $PATH/$DIRECTORY/$base_i $target"
+			cp -f "$PATH/$DIRECTORY/$base_i" "$target"
 		fi
 	done
 	echo "[DUMP] ./usr/bin/enigma2"
 }
 
 echo "Downloading latest CHECKSUM"
-wget -O "$CHECKSUM_LATEST" "$1/$CHECKSUM_LOCAL"
-if [ -f $CHECKSUM_LATEST ]
+wget -O "$PATH/$CHECKSUM_LATEST" "$1/$CHECKSUM_LOCAL"
+if [ -f "$PATH/$CHECKSUM_LATEST" ]
 then
-	if [ -f $CHECKSUM_LOCAL ]
+	if [ -f "$PATH/$CHECKSUM_LOCAL" ]
 	then
-		if diff "$CHECKSUM_LOCAL" "$CHECKSUM_LATEST" > /dev/null
+		if diff "$PATH/$CHECKSUM_LOCAL" "$PATH/$CHECKSUM_LATEST" > /dev/null
 		then
 			echo "No update required"
 		else
 			updateSettings "$1"
 			echo "Updating latest CHECKSUM"
-			rm "$CHECKSUM_LOCAL"
-			mv "$CHECKSUM_LATEST" "$CHECKSUM_LOCAL"
+			rm "$PATH/$CHECKSUM_LOCAL"
+			mv "$PATH/$CHECKSUM_LATEST" "$PATH/$CHECKSUM_LOCAL"
 		fi
 	else
 		updateSettings "$1"
 		echo "Updating latest CHECKSUM"
-		rm "$CHECKSUM_LOCAL"
-		mv "$CHECKSUM_LATEST" "$CHECKSUM_LOCAL"
+		rm "$PATH/$CHECKSUM_LOCAL"
+		mv "$PATH/$CHECKSUM_LATEST" "$PATH/$CHECKSUM_LOCAL"
 	fi
 else
 	echo "Latest CHECKSUM missing! Aborting..."
