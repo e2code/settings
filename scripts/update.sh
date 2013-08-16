@@ -9,7 +9,7 @@ then
 fi
 
 FILE=update.zip
-DIRECTORY=channels
+DIRECTORY=/var/e2code/channels
 CHECKSUM_LOCAL=CHECKSUM
 CHECKSUM_LATEST=CHECKSUM_LATEST
 
@@ -61,7 +61,8 @@ updateSettings() {
 		done
 		if [ $IS_SET == 0 ]
 		then
-				echo "rm $i"
+			echo "rm $i"
+			rm "$i"
 		fi
 	done
 	FILES=$(ls -lh $DIRECTORY | awk '{ print $9 }')
@@ -73,12 +74,19 @@ updateSettings() {
 		"satellites.xml")
 			target="/etc/tuxbox"
 			;;
+		"$CHECKSUM_LOCAL")
+			target=0
+			;;
 		*)
 			;;
 		esac
-		echo "cp -f $i $target"
+		if [ $target != 0 ] 
+		then 
+			echo "cp -f $i $target"
+			cp -f "$i" "$target"
+		fi
 	done
-	echo "./usr/bin/enigma2"
+	echo "[DUMP] ./usr/bin/enigma2"
 }
 
 echo "Downloading latest CHECKSUM"
@@ -91,16 +99,16 @@ then
 		then
 			echo "No update required"
 		else
-			updateSettings
+			updateSettings "$1"
 			echo "Updating latest CHECKSUM"
+			rm "$CHECKSUM_LOCAL"
 			mv "$CHECKSUM_LATEST" "$CHECKSUM_LOCAL"
-			rm "$CHECKSUM_LATEST"
 		fi
 	else
-		updateSettings
+		updateSettings "$1"
 		echo "Updating latest CHECKSUM"
+		rm "$CHECKSUM_LOCAL"
 		mv "$CHECKSUM_LATEST" "$CHECKSUM_LOCAL"
-		rm "$CHECKSUM_LATEST"
 	fi
 else
 	echo "Latest CHECKSUM missing! Aborting..."
