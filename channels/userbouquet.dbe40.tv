@@ -1,0 +1,10 @@
+#NAME America
+#SERVICE 1:64:1ED:0:0:0:0:0:0:0::---------- Brazil ----------
+#DESCRIPTION ---------- Brazil ----------
+#SERVICE 1:0:1:1B62:3FC:1:C00000:0:0:0:
+#SERVICE 1:64:1EE:0:0:0:0:0:0:0::---------- Venezuela ----------
+#DESCRIPTION ---------- Venezuela ----------
+#SERVICE 1:0:1:7A48:410:1:C00000:0:0:0:
+#SERVICE 1:64:1EF:0:0:0:0:0:0:0::---------- Cuba ----------
+#DESCRIPTION ---------- Cuba ----------
+#SERVICE 1:0:1:1B60:3FC:1:C00000:0:0:0:
