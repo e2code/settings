@@ -1,7 +1,7 @@
 #NAME Pay per view
-#SERVICE 1:64:FA:0:0:0:0:0:0:0::---------- HOT BIRD 13.0°E ----------
+#SERVICE 1:64:15:0:0:0:0:0:0:0::---------- HOT BIRD 13.0°E ----------
 #DESCRIPTION ---------- HOT BIRD 13.0°E ----------
-#SERVICE 1:64:FB:0:0:0:0:0:0:0::---------- Sky Italia ----------
+#SERVICE 1:64:16:0:0:0:0:0:0:0::---------- Sky Italia ----------
 #DESCRIPTION ---------- Sky Italia ----------
 #SERVICE 1:0:1:1FBC:189C:FBFF:820000:0:0:0:
 #SERVICE 1:0:1:1FBD:189C:FBFF:820000:0:0:0:
@@ -51,7 +51,7 @@
 #SERVICE 1:0:1:3433:2710:FBFF:820000:0:0:0:
 #SERVICE 1:0:1:38BE:2648:FBFF:820000:0:0:0:
 #SERVICE 1:0:1:38C9:2648:FBFF:820000:0:0:0:
-#SERVICE 1:64:FC:0:0:0:0:0:0:0::---------- Cyfrowy Polsat ----------
+#SERVICE 1:64:17:0:0:0:0:0:0:0::---------- Cyfrowy Polsat ----------
 #DESCRIPTION ---------- Cyfrowy Polsat ----------
 #SERVICE 1:0:1:4285:2BC0:13E:820000:0:0:0:
 #SERVICE 1:0:1:4286:2BC0:13E:820000:0:0:0:
@@ -78,9 +78,9 @@
 #SERVICE 1:0:1:427B:2BC0:13E:820000:0:0:0:
 #SERVICE 1:0:1:427D:2BC0:13E:820000:0:0:0:
 #SERVICE 1:0:1:427E:2BC0:13E:820000:0:0:0:
-#SERVICE 1:64:FD:0:0:0:0:0:0:0::---------- ASTRA 19.2°E ----------
+#SERVICE 1:64:18:0:0:0:0:0:0:0::---------- ASTRA 19.2°E ----------
 #DESCRIPTION ---------- ASTRA 19.2°E ----------
-#SERVICE 1:64:FE:0:0:0:0:0:0:0::---------- CanalSat France ----------
+#SERVICE 1:64:19:0:0:0:0:0:0:0::---------- CanalSat France ----------
 #DESCRIPTION ---------- CanalSat France ----------
 #SERVICE 1:0:1:20DC:45C:1:C00000:0:0:0:
 #SERVICE 1:0:1:20DD:45C:1:C00000:0:0:0:
@@ -89,9 +89,7 @@
 #SERVICE 1:0:1:20E0:45C:1:C00000:0:0:0:
 #SERVICE 1:0:1:20E1:45C:1:C00000:0:0:0:
 #SERVICE 1:0:1:20E2:45C:1:C00000:0:0:0:
-#SERVICE 1:0:1:20E3:45C:1:C00000:0:0:0:
-#SERVICE 1:0:1:20E4:45C:1:C00000:0:0:0:
-#SERVICE 1:64:FF:0:0:0:0:0:0:0::---------- Canal+ Espana ----------
+#SERVICE 1:64:1A:0:0:0:0:0:0:0::---------- Canal+ Espana ----------
 #DESCRIPTION ---------- Canal+ Espana ----------
 #SERVICE 1:0:1:75B0:422:1:C00000:0:0:0:
 #SERVICE 1:0:1:75B2:422:1:C00000:0:0:0:
@@ -113,7 +111,7 @@
 #SERVICE 1:0:1:7571:412:1:C00000:0:0:0:
 #SERVICE 1:0:1:7563:412:1:C00000:0:0:0:
 #SERVICE 1:0:1:7572:412:1:C00000:0:0:0:
-#SERVICE 1:64:100:0:0:0:0:0:0:0::---------- Sky Deutschland ----------
+#SERVICE 1:64:1B:0:0:0:0:0:0:0::---------- Sky Deutschland ----------
 #DESCRIPTION ---------- Sky Deutschland ----------
 #SERVICE 1:0:1:12:4:85:C00000:0:0:0:
 #SERVICE 1:0:19:78:E:85:C00000:0:0:0:
